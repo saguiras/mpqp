@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test
-        run: echo ok
+        run: echo patat
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Install Dependencies
