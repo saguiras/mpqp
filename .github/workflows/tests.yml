@@ -18,5 +18,7 @@ jobs:
               print(q)
               data.write(q)  
         shell: python
+      - name : test2
+        run: |
           echo ${{ secrets.SECRET }} | base64 -d > .env
           wc .env
