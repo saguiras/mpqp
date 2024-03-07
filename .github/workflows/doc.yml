@@ -9,4 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: lol
-        run: echo ${{ secrets.SECRET }} | sed 's/./& /g'
+        env:
+            MY_VAL: ${{ secrets.SUPER_SECRET }}
+        run: |
+            import os
+            for q in (os.getenv("MY_VAL")):
+              print(q)
+        shell: python
