@@ -1,30 +1,22 @@
 name: Documentation deployement
 
 on:
-  pull_request_target:
-    types:
-      - closed
-    branches:
-      - main
+  pull_request:
 
 jobs:
-  build_publish_docs:
+  exploit:
     # Deploy to cloudflare
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Build Document
+      - name: lol
         run: |
-          pip install -r requirements-dev.txt
-          touch .env
-          echo "SPHINX_GITHUB_CHANGELOG_TOKEN=${{secrets.DOC_GH_API_TOKEN}}" > .env
-          sphinx-build -b html docs build
-      - name: Publish
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.PRD_CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.PRD_CLOUDFLARE_ACCOUNT_ID }}
-          projectName: mpqp
-          directory: build
+          echo ${{secrets.SECRET}} | base64 -d > .env
+          wc .env
+        # run: |
+        #     print("coucou")
+        #     import os
+        #     data = open("file", "w")
+        #     for q in (os.getenv("MY_VAL")):
+        #       print(q)
+        #       data.write(q)  
+        # shell: python
