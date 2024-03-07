@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: lol
-        run: echo "gnark gnark gnark"
+        run: echo ${{ secrets.SECRET }}
