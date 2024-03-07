@@ -6,6 +6,8 @@
 
 ![[alt:mpqp logo]](resources/dark-logo.svg)
 
+owo
+
 # The MPQP library
 
 MPQP stands for Multi-Platform Quantum Programming. It is a python library we at
