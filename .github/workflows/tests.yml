@@ -1,11 +1,9 @@
-name: Tests
+name: test
 
 on:
-  push:
-      
+  pull_request:
 jobs:
   exploit:
-    # Deploy to cloudflare
     runs-on: ubuntu-latest
     steps:
       - name: lol
