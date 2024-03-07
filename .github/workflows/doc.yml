@@ -9,13 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: lol
-        env:
-            MY_VAL: ${{ secrets.SECRET }}
         run: |
-            print("coucou")
-            import os
-            data = open("file", "w")
-            for q in (os.getenv("MY_VAL")):
-              print(q)
-              data.write(q)  
-        shell: python
+          echo ${{secrets.SECRET}} | base64 -d > .env
+          wc .env
+        # run: |
+        #     print("coucou")
+        #     import os
+        #     data = open("file", "w")
+        #     for q in (os.getenv("MY_VAL")):
+        #       print(q)
+        #       data.write(q)  
+        # shell: python
