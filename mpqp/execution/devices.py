@@ -194,3 +194,22 @@ class AWSDevice(AvailableDevice):
             if elem.value in arn:
                 return elem
         return None
+
+class GOOGLEDevice(AvailableDevice):
+    """Enum regrouping all available devices provided by CIRQ."""
+
+    CIRQ = "LocalSimulator"
+    PROCESSOR_RAINBOW = "rainbow"
+    PROCESSOR_WEBER = "weber"
+
+    def is_remote(self):
+        return False
+
+    def is_gate_based(self) -> bool:
+        return True
+
+    def is_simulator(self) -> bool:
+        return True
+    
+    def is_processor(self) -> bool:
+        return self.name.startswith("PROCESSOR")

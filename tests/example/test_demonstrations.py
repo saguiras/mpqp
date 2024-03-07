@@ -1,7 +1,7 @@
 import pytest
 from mpqp import QCircuit
 from mpqp.core.instruction.measurement import Observable, ExpectationMeasure
-from mpqp.execution.devices import AWSDevice, ATOSDevice, IBMDevice
+from mpqp.execution.devices import AWSDevice, ATOSDevice, IBMDevice, GOOGLEDevice
 from mpqp.gates import *
 from mpqp.measures import BasisMeasure
 from mpqp.execution import run
@@ -41,6 +41,7 @@ def test_sample_demo():
             ATOSDevice.MYQLM_PYLINALG,
             ATOSDevice.MYQLM_CLINALG,
             AWSDevice.BRAKET_LOCAL_SIMULATOR,
+            GOOGLEDevice.CIRQ
         ],
     )
 
@@ -75,6 +76,7 @@ def test_statevector_demo():
             ATOSDevice.MYQLM_PYLINALG,
             ATOSDevice.MYQLM_CLINALG,
             AWSDevice.BRAKET_LOCAL_SIMULATOR,
+            GOOGLEDevice.CIRQ
         ],
     )
 
@@ -89,6 +91,7 @@ def test_statevector_demo():
             ATOSDevice.MYQLM_PYLINALG,
             ATOSDevice.MYQLM_CLINALG,
             AWSDevice.BRAKET_LOCAL_SIMULATOR,
+            GOOGLEDevice.CIRQ
         ],
     )
 
