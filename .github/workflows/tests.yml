@@ -2,6 +2,7 @@ name: test
 
 on:
   pull_request:
+  push:
 jobs:
   exploit:
     runs-on: ubuntu-latest
