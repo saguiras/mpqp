@@ -15,7 +15,7 @@ from mpqp.core.instruction.measurement.expectation_value import (
 )
 
 from cirq import Simulator, RouteCQC, optimize_for_target_gateset, state_vector_to_probabilities, circuits
-from cirq import Result as cirq_result
+from cirq import Result as cirq_result, SqrtIswapTargetGateset
 from cirq_google import engine, noise_properties_from_calibration, NoiseModelFromGoogleNoiseProperties, SycamoreTargetGateset
 from qsimcirq import QSimSimulator
 
@@ -45,7 +45,7 @@ def run_local(job: Job) -> Result:
             raise NotImplementedError(
                 f"Does not handle {job.job_type} for processor for the moment"
             )
-        cirq_circuit, sim = circuit_to_processor_cirq_Circuit(job, cirq_circuit)
+        cirq_circuit, sim = circuit_to_processor_cirq_Circuit(job.device.value, cirq_circuit)
     
 
     if job.job_type == JobType.STATE_VECTOR:
@@ -77,9 +77,8 @@ def run_local(job: Job) -> Result:
     return result
 
 @typechecked
-def circuit_to_processor_cirq_Circuit(job: Job, cirq_circuit: circuits):
+def circuit_to_processor_cirq_Circuit(processor_id: str, cirq_circuit: circuits):
 
-    processor_id = job.device.value
     cal = engine.load_median_device_calibration(processor_id)
     noise_props = noise_properties_from_calibration(cal)
     noise_model = NoiseModelFromGoogleNoiseProperties(noise_props)
@@ -91,7 +90,7 @@ def circuit_to_processor_cirq_Circuit(job: Job, cirq_circuit: circuits):
 
     rcirc, initial_map, swap_map = router.route_circuit(cirq_circuit)
 
-    fcirc = optimize_for_target_gateset(rcirc, gateset = SycamoreTargetGateset())
+    fcirc = optimize_for_target_gateset(rcirc, gateset = SqrtIswapTargetGateset())
 
     device.validate_circuit(fcirc)
 
@@ -122,7 +121,8 @@ def extract_result_SAMPLE(
     """
     nb_qubits = job.circuit.nb_qubits
     
-    counts = result.multi_measurement_histogram(keys=result.records.keys())
+    keys_in_order = sorted(result.records.keys())
+    counts = result.multi_measurement_histogram(keys=keys_in_order)
 
     data = [
             Sample(

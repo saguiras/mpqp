@@ -23,8 +23,8 @@ def plot_results_sample_mode(results: Union[BatchResult, Result]):
     if isinstance(results, Result):
         return _plot_result_sample_mode(results)
 
-    n_cols = math.ceil(len(results.results) // 2)
-    n_rows = 2
+    n_cols = math.ceil((len(results.results)+1) // 2)
+    n_rows = math.ceil(len(results.results) - n_cols)
 
     for index, result in enumerate(results.results):
         plt.subplot(n_rows, n_cols, index + 1)
